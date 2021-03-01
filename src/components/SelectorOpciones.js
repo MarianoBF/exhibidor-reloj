@@ -1,55 +1,35 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../App'
 
-
-// import {useState} from "react"
-
-// let elegidaAux = 0;
-// export const opcionElegida = {elegidaAux}
-
 function SelectorOpciones(props) {
 
-    const {state, dispatch} = useContext(AppContext);
 
-    const changeInputValue = (newValue) => {
+    const {dispatch} = useContext(AppContext);
+
+    const changeInputValue = (newValue, e) => {
+        if ( document.getElementsByClassName("imagenSelectorActivo")[0] ) { document.getElementsByClassName("imagenSelectorActivo")[0].classList.remove("imagenSelectorActivo") }
         dispatch({ type: 'UPDATE_INPUT', data: newValue,});
+        e.target.classList.toggle("imagenSelectorActivo")
     };
 
-
-// const [elegida, setElegida] = useState(0)
-
-// const elegirOpcion0 = () => {
-//     setElegida(0)
-//     elegidaAux = elegida
-// }
-
-// const elegirOpcion1 = () => {
-//     setElegida(1)
-//     elegidaAux = elegida
-// }
-
-// const elegirOpcion2 = () => {
-//     setElegida(2)
-//     elegidaAux = elegida
-// }
-
-// const elegirOpcion3 = () => {
-//     setElegida(3)
-//     elegidaAux = elegida
-// }
+    const changeButton = () => {
+        dispatch({ type: "CAMBIAR_BOTON", })
+    }
 
     return(
-        <div>
+        <div className="contenedorSelector">
         <ul>
-            <li><img onClick={() => changeInputValue(0)} className="imagenSelector" src={props.datos.colorOptions[0].imageUrl} alt={props.datos.colorOptions[0].styleName} /></li>
-            <li><img onClick={() => changeInputValue(1)} className="imagenSelector" src={props.datos.colorOptions[1].imageUrl} alt={props.datos.colorOptions[2].styleName} /></li>
-            <li><img onClick={() => changeInputValue(2)} className="imagenSelector" src={props.datos.colorOptions[2].imageUrl} alt={props.datos.colorOptions[2].styleName} /></li>
-            <li><img onClick={() => changeInputValue(3)} className="imagenSelector" src={props.datos.colorOptions[3].imageUrl} alt={props.datos.colorOptions[3].styleName} /></li>
+            <li><img onClick={(e) => changeInputValue(0,e)} className="imagenSelector" src={props.datos.colorOptions[0].imageUrl} alt={props.datos.colorOptions[0].styleName} /></li>
+            <li><img onClick={(e) => changeInputValue(1,e)} className="imagenSelector" src={props.datos.colorOptions[1].imageUrl} alt={props.datos.colorOptions[2].styleName} /></li>
+            <li><img onClick={(e) => changeInputValue(2,e)} className="imagenSelector" src={props.datos.colorOptions[2].imageUrl} alt={props.datos.colorOptions[2].styleName} /></li>
+            <li><img onClick={(e) => changeInputValue(3,e)} className="imagenSelector" src={props.datos.colorOptions[3].imageUrl} alt={props.datos.colorOptions[3].styleName} /></li>
         </ul>
 
-        <button>{props.datos.featureList[0]}</button>
-        <button>{props.datos.featureList[1]}</button>
-
+        <div className="botonera">
+            <button onClick={()=>changeButton()} className="botonesProducto">{props.datos.featureList[0]}</button>
+            <button onClick={()=>changeButton()} className="botonesProducto">{props.datos.featureList[1]}</button>
+            <button className="botonesProducto">Buy me</button>
+        </div>
         </div>
     ) 
 }

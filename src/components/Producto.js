@@ -1,11 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { AppContext } from '../App'
+import ImagenProducto from "./ImagenProducto.js"
 
 function Producto(props) {
+
 
     const {state} = useContext(AppContext);
     const [fecha, setFecha] = useState(0)
     const corazon = "80 BPM"
+
+    const ImagenMemorizada = useMemo(()=><ImagenProducto datos={props.datos} />,[props.datos])
 
 
     useEffect(() => {
@@ -24,7 +28,7 @@ function Producto(props) {
             <h1>{props.datos.title}</h1>
             <p>{props.datos.description}</p>
             <div className="contenedorImagenProducto">
-                <img className="imagenProducto" src={props.datos.colorOptions[state.modeloMostrado].imageUrl} alt="Product"/>
+                {ImagenMemorizada}
                 <p className="fecha">{state.boton ? fecha : corazon}</p>
             </div>
         </div>
